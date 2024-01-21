@@ -6,12 +6,12 @@
     - [X] Fazer seed de usuario admin
     - [X] Fazer login para admin
     - [ ] Fazer tela dashboard admin
-    - [ ] Fazer fazer cadastro de usuarios
-    - [ ] Fazer fazer cadastro de cinemas
+    - [ ] Fazer crud de usuarios admin
+    - [ ] Fazer crud de cinemas admin
+    - [ ] Fazer crud de filmes admin
     - [ ] Fazer login do cinema
     - [ ] Fazer registrar de clientes
     - [ ] Fazer login de clientes
-    - [ ] Fazer crud de filmes admin
     - [ ] Fazer crud de filmes cinema
     - [ ] Fazer crud de salas cinema
     - [ ] Fazer crud de sessao cinema
