@@ -2,7 +2,7 @@
 
     - [X] Fazer diagrama ER
     - [X] Fazer migrations
-    - [ ] Fazer models
+    - [X] Fazer models
     - [ ] Fazer login para admin
     - [ ] Fazer fazer cadastro de usuarios
     - [ ] Fazer fazer cadastro de cinemas

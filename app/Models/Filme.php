@@ -5,20 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sala extends Model
+class Filme extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'numero',
+        'nome',
+        'imagem',
     ];
 
-    protected $table = 'salas';
-
-    public function assentos()
-    {
-        return $this->hasMany(Assento::class);
-    }
+    protected $table = 'filmes';
 
     public function sessoes()
     {
