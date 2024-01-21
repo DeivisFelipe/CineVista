@@ -3,7 +3,9 @@
     - [X] Fazer diagrama ER
     - [X] Fazer migrations
     - [X] Fazer models
-    - [ ] Fazer login para admin
+    - [X] Fazer seed de usuario admin
+    - [X] Fazer login para admin
+    - [ ] Fazer tela dashboard admin
     - [ ] Fazer fazer cadastro de usuarios
     - [ ] Fazer fazer cadastro de cinemas
     - [ ] Fazer login do cinema
