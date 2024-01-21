@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('salas', function (Blueprint $table) {
+        Schema::create('assentos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('numero')->unique();
+            $table->foreignId('sala_id')->constrained();
+            $table->unsignedInteger('numero');
+            $table->string('fileira');
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('salas');
+        Schema::dropIfExists('assentos');
     }
 };

@@ -1,7 +1,7 @@
 ## Coisas para fazer
 
-    - [ ] Fazer diagrama ER
-    - [ ] Fazer migrations
+    - [X] Fazer diagrama ER
+    - [X] Fazer migrations
     - [ ] Fazer models
     - [ ] Fazer login para admin
     - [ ] Fazer fazer cadastro de usuarios
