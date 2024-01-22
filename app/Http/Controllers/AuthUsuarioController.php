@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\UserTenant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
@@ -34,8 +35,8 @@ class AuthUsuarioController extends Controller
         // Pega o tenant atual
         $tenant = tenant();
 
-        // Pega o usuário pelo email
-        $user = $tenant->users()->where('email', $request->email)->first();
+        // Pega o usuário pelo email UserTenant
+        $user = UserTenant::where('email', $request->email)->first();
 
         // Verifica se o usuário existe no tenant
         if ($user) {

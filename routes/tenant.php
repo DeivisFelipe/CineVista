@@ -28,7 +28,7 @@ Route::middleware([
 
     Route::get('/dashboard', function () {
         return Inertia::render('Cinema/Usuario/Dashboard');
-    })->middleware(['auth'])->name('cinema.usuario.dashboard');
+    })->middleware(['auth:usuario'])->name('cinema.usuario.dashboard');
 
     Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileCinemaController::class, 'edit'])->name('profile.edit');
