@@ -14,6 +14,9 @@
 
 Para que o Multi Tenant funcionar é preciso ter um servidor PHP que permita rodar domain.localhost, pois os dominios tem que ser subdominios do localhost
 
+email: guerreirodosul01@gmail.com
+password: asdasdasd
+
 ## Modelo ER
 
 Dentro da pasta docs tem o modelo ER feito
