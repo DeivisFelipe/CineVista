@@ -7,8 +7,8 @@
     - [X] Fazer login para admin
     - [ ] Fazer tela dashboard admin
     - [X] Fazer crud de usuarios admin
+    - [X] Fazer crud de filmes admin
     - [ ] Fazer crud de cinemas admin
-    - [ ] Fazer crud de filmes admin
     - [ ] Fazer login do cinema
     - [ ] Fazer registrar de clientes
     - [ ] Fazer login de clientes

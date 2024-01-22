@@ -33,18 +33,19 @@ class FilmeController extends Controller
     {
         // Valida os dados do formulário
         $request->validate([
-            'name' => 'required',
-            'image' => 'required|image|mimes:jpeg,jpg,png,gif'
+            'nome' => 'required',
+            'imagem' => 'required|image|mimes:jpeg,jpg,png,gif'
         ]);
 
-        // Salva a imagem na pasta public/images
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
+        // Salva a imagem no public/storage/images/filmes
+        $imageName = time() . '.' . $request->imagem->extension();
+        $request->imagem->move(public_path('storage/images/filmes'), $imageName);
+
 
         // Cria um novo filme
         Filme::create([
-            'name' => $request->name,
-            'image' => $imageName
+            'nome' => $request->nome,
+            'imagem' => $imageName
         ]);
 
         // Retorna para a lista de filmes
@@ -69,25 +70,32 @@ class FilmeController extends Controller
 
     public function update(Request $request, Filme $filme)
     {
-        // Valida os dados do formulário
-        $request->validate([
-            'image' => 'image|mimes:jpeg,jpg,png,gif'
-        ]);
+        // Se a imagem for igual a anterior, não valida e não salva
+        if ($request->imagem != $filme->imagem) {
+            // Valida os dados do formulário
+            $request->validate([
+                'imagem' => 'image|mimes:jpeg,jpg,png,gif'
+            ]);
 
-        // Salva a imagem na pasta public/images
-        if ($request->image) {
-            // Deleta a imagem antiga
-            unlink(public_path('images/' . $filme->image));
+            // Salva a imagem na pasta public/images
+            if ($request->imagem) {
+                // Deleta a imagem antiga
+                unlink(public_path('storage/images/filmes/' . $filme->imagem));
 
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
+                $imageName = time() . '.' . $request->imagem->extension();
+                $request->imagem->move(public_path('storage/images/filmes'), $imageName);
+            }
+
+            // Atualiza os dados do filme
+            $filme->update([
+                'name' => $request->nome,
+                'imagem' => $request->imagem ? $imageName : $filme->imagem
+            ]);
+        } else {
+            $filme->update([
+                'name' => $request->nome,
+            ]);
         }
-
-        // Atualiza os dados do filme
-        $filme->update([
-            'name' => $request->name,
-            'image' => $request->image ? $imageName : $filme->image
-        ]);
 
         // Retorna para a lista de filmes
         return redirect()->route('filmes.index');
@@ -95,6 +103,9 @@ class FilmeController extends Controller
 
     public function destroy(Filme $filme)
     {
+        // Deleta a imagem
+        unlink(public_path('storage/images/filmes/' . $filme->imagem));
+
         // Deleta o filme
         $filme->delete();
 

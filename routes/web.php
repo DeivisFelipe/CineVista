@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/filmes/create', [FilmeController::class, 'create'])->name('filmes.create');
     Route::post('/filmes', [FilmeController::class, 'store'])->name('filmes.store');
     Route::get('/filmes/{filme}/edit', [FilmeController::class, 'edit'])->name('filmes.edit');
-    Route::put('/filmes/{filme}', [FilmeController::class, 'update'])->name('filmes.update');
+    Route::post('/filmes/{filme}', [FilmeController::class, 'update'])->name('filmes.update');
     Route::delete('/filmes/{filme}', [FilmeController::class, 'destroy'])->name('filmes.destroy');
 
     // Crud Usuarios
