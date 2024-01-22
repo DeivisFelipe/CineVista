@@ -12,8 +12,9 @@ const showingNavigationDropdown = ref(false);
 
 <template>
   <div>
+
     <header class="w-full flex items-center text-cinevista-secondary arimo tracking-widest text-xl font bg-cinevista-primary px-14 py-4">
-      <Link href="/">
+      <Link :href="route('cinema.usuario.dashboard')">
       <img src="/imagens/CineVistaLogoLado.png" class="h-16">
       </Link>
       <nav class="w-full">

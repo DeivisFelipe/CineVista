@@ -74,9 +74,32 @@ class SalaController extends Controller
     public function assentos(Sala $sala)
     {
         $assentos = $sala->assentos;
-        return Inertia::render('Cinema/Usuario/Salas/Assentos/Index', [
+        return Inertia::render('Cinema/Usuario/Salas/Assentos', [
             'assentos' => $assentos,
             'sala' => $sala
         ]);
+    }
+
+    public function storeAssento(Request $request, Sala $sala)
+    {
+        // Valida os dados, a combinacao de numero e fileira deve ser unica
+        $request->validate([
+            'numero' => 'required|numeric|min:1|max:25|unique:assentos,numero,NULL,id,fileira,' . $request->fileira,
+            'fileira' => 'required',
+        ]);
+
+        // Cria o assento
+        $sala->assentos()->create([
+            'numero' => $request->numero,
+            'fileira' => $request->fileira,
+        ]);
+
+        return redirect()->route('cinema.usuario.salas.assentos.index', $sala);
+    }
+
+    public function destroyAssento(Sala $sala, $assento)
+    {
+        $sala->assentos()->where('id', $assento)->delete();
+        return redirect()->route('cinema.usuario.salas.assentos.index', $sala);
     }
 }
