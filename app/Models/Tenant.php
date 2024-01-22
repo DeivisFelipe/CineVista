@@ -13,7 +13,8 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     use HasDatabase, HasDomains;
 
     protected $fillable = [
-        'name',
+        'id',
+        'nome',
         'data'
     ];
 
@@ -27,5 +28,13 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_tenant');
+    }
+
+    public static function getCustomColumns(): array
+    {
+        return [
+            'id',
+            'nome',
+        ];
     }
 }

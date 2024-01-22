@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Stancl\Tenancy\Tenancy;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 
 class UserAdminSeeder extends Seeder
 {
@@ -13,8 +15,8 @@ class UserAdminSeeder extends Seeder
     public function run(): void
     {
         // Criar um usuario admin 
-        // Senha com hash
-        $user = \App\Models\User::create([
+        // Senha com hash=
+        \App\Models\User::create([
             'name' => 'Admin',
             'email' => 'guerreirodosul01@gmail.com',
             'password' => bcrypt('asdasdasd'),

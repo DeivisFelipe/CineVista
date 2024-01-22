@@ -30,7 +30,7 @@ const showingNavigationDropdown = ref(false);
           <Link :href="route('profile.edit')">
           <li class="text-white mx-6">Perfil</li>
           </Link>
-          <Link :href="route('logout')">
+          <Link :href="route('logout')" method="post">
           <li class="text-white mx-6">Sair</li>
           </Link>
         </ul>

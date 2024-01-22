@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('cliente_id')->constrained();
             $table->foreignId('assento_id')->constrained();
-            $table->foreignId('sessao_id')->constrained();
+            $table->foreignId('sessao_id')->constrained('sessao');
             $table->timestamps();
         });
     }

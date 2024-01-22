@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sessao', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('filme_id')->constrained();
+            $table->unsignedInteger('filme_id');
             $table->foreignId('sala_id')->constrained();
             $table->dateTime('inicio');
             $table->dateTime('fim');
