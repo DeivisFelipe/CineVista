@@ -67,6 +67,8 @@ class SalaController extends Controller
 
     public function destroySala(Sala $sala)
     {
+        // Deleta os assentos
+        $sala->assentos()->delete();
         $sala->delete();
         return redirect()->route('cinema.usuario.salas');
     }

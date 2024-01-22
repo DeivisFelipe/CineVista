@@ -17,7 +17,7 @@ class Sessao extends Model
         'preco',
     ];
 
-    protected $table = 'sessoes';
+    protected $table = 'sessao';
 
     public function sala()
     {
@@ -26,7 +26,14 @@ class Sessao extends Model
 
     public function filme()
     {
-        return $this->belongsTo(Filme::class);
+        $filme = null;
+        $sessao = $this;
+        // Desativa o tenancy para pegar o filme
+        tenancy()->central(function ()  use ($sessao, &$filme) {
+            $filme = Filme::find($sessao->filme_id);
+        });
+
+        return $filme;
     }
 
     public function ingressos()

@@ -54,9 +54,12 @@ Route::middleware([
         Route::get('cinema/usuario/sessoes', [SessaoController::class, 'sessoes'])->name('cinema.usuario.sessoes');
         Route::get('cinema/usuario/sessoes/create', [SessaoController::class, 'createSessao'])->name('cinema.usuario.sessoes.create');
         Route::post('cinema/usuario/sessoes/create', [SessaoController::class, 'storeSessao'])->name('cinema.usuario.sessoes.store');
-        Route::get('cinema/usuario/sessoes/{sessao}/edit', [SessaoController::class, 'editSessao'])->name('cinema.usuario.sessoes.edit');
-        Route::patch('cinema/usuario/sessoes/{sessao}/edit', [SessaoController::class, 'updateSessao'])->name('cinema.usuario.sessoes.update');
         Route::delete('cinema/usuario/sessoes/{sessao}/edit', [SessaoController::class, 'destroySessao'])->name('cinema.usuario.sessoes.destroy');
+
+        // Search Filmes
+        Route::get('cinema/usuario/filmes/search', [SessaoController::class, 'searchFilmes'])->name('cinema.usuario.filmes.search');
+        // Search Salas
+        Route::get('cinema/usuario/salas/search', [SessaoController::class, 'searchSalas'])->name('cinema.usuario.salas.search');
     });
 
     Route::middleware('guest')->group(function () {

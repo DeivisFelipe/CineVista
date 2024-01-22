@@ -25,9 +25,6 @@ const showingNavigationDropdown = ref(false);
           <Link :href="route('cinema.usuario.sessoes')">
           <li class="text-white mx-6">Sessões</li>
           </Link>
-          <Link :href="route('cinema.usuario.profile.edit')">
-          <li class="text-white mx-6">Perfil</li>
-          </Link>
           <Link :href="route('cinema.usuario.logout')" method="post">
           <li class="text-white mx-6">Sair</li>
           </Link>

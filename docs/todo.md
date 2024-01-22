@@ -15,4 +15,4 @@
     - [X] Fazer login de clientes
     - [X] Fazer crud de salas cinema
     - [X] Fazer crud de assentos cinema
-    - [ ] Fazer crud de sessao cinema
+    - [X] Fazer crud de sessao cinema
