@@ -38,7 +38,7 @@ const showingNavigationDropdown = ref(false);
     </header>
 
     <!-- Page Content -->
-    <main>
+    <main class="w-full min-h-screen py-12 bg-cinevista">
       <slot />
     </main>
 
@@ -74,7 +74,7 @@ const showingNavigationDropdown = ref(false);
 }
 
 .bg-cinevista {
-  background-image: url("imagens/CineVistaBG.png");
+  background-image: url("/imagens/CineVistaBG.png");
   background-size: 250px;
 }
 

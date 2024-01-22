@@ -13,7 +13,7 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
   </Head>
 
   <AdminLayout>
-    <section class="w-full h-screen py-12 bg-cinevista flex items-center justify-center">
+    <section class="w-full h-screen flex items-center justify-center">
       <h1 class="text-cinevista-secondary text-7xl text-center chewy-regular ">Bem-vindo a tela de Administrador</h1>
     </section>
   </AdminLayout>
