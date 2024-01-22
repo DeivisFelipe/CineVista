@@ -24,6 +24,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/cinemas/{cinema}/edit', [CinemaController::class, 'edit'])->name('cinemas.edit');
     Route::put('/cinemas/{cinema}', [CinemaController::class, 'update'])->name('cinemas.update');
     Route::delete('/cinemas/{cinema}', [CinemaController::class, 'destroy'])->name('cinemas.destroy');
+    // Usuários do cinema
+    Route::get('/cinemas/{cinema}/usuarios', [CinemaController::class, 'usuarios'])->name('cinemas.usuarios');
+    // Adicionar usuário ao cinema post
+    Route::post('/cinemas/{cinema}/usuarios', [CinemaController::class, 'addUsuario'])->name('cinemas.usuarios.add');
+    // Remover usuário do cinema delete
+    Route::delete('/cinemas/{cinema}/usuarios/{usuario}', [CinemaController::class, 'removeUsuario'])->name('cinemas.usuarios.remove');
+    // Tornar usuário gerente do cinema
+    Route::put('/cinemas/{cinema}/usuarios/{usuario}', [CinemaController::class, 'gerenteUsuario'])->name('cinemas.usuarios.gerente');
 
     // Crud Filmes
     Route::get('/filmes', [FilmeController::class, 'index'])->name('filmes.index');
@@ -40,6 +48,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/usuarios/{usuario}/edit', [UsuarioController::class, 'edit'])->name('usuarios.edit');
     Route::put('/usuarios/{usuario}', [UsuarioController::class, 'update'])->name('usuarios.update');
     Route::delete('/usuarios/{usuario}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
+    // Find usuario por email
+    Route::get('/usuarios/find', [UsuarioController::class, 'find'])->name('usuarios.find');
 });
 
 require __DIR__ . '/auth.php';

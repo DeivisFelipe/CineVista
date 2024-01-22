@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('tenant_id')->constrained();
+            $table->boolean('gerente')->default(false);
             $table->timestamps();
         });
     }

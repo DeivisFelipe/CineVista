@@ -49,7 +49,7 @@ function deleteCinema(cinema) {
                 <td class="p-4 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">{{ cinema.nome }}</td>
                 <td class="p-4 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">{{ cinema.domains[0].domain + ".localhost" }}</td>
                 <td class="p-4 font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900 text-right">
-                  <a :href="route('cinemas.edit', cinema.id)" class="text-indigo-600 hover:text-indigo-900">Usuários</a>
+                  <a :href="route('cinemas.usuarios', cinema.id)" class="text-indigo-600 hover:text-indigo-900">Usuários</a>
                   <a :href="route('cinemas.edit', cinema.id)" class="text-indigo-600 hover:text-indigo-900 ml-3">Editar</a>
                   <a @click="deleteCinema(cinema)" class="text-red-600 hover:text-red-900 ml-3">Excluir</a>
                 </td>

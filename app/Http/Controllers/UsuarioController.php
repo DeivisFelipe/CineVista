@@ -100,4 +100,17 @@ class UsuarioController extends Controller
         // Retorna para a lista de usuários
         return redirect()->route('usuarios.index');
     }
+
+    public function find(Request $request)
+    {
+        // Valida os dados do formulário
+        $request->validate([
+            'email' => 'required'
+        ]);
+
+        // Busca o usuário pelo email com Like
+        $usuarios = User::where('email', 'like', '%' . $request->email . '%')->limit(10)->get();
+
+        return response()->json(['usuarios' => $usuarios]);
+    }
 }

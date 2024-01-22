@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Inertia\Inertia;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
 class CinemaController extends Controller
 {
@@ -105,5 +106,56 @@ class CinemaController extends Controller
 
         // Retorna para a lista de cinemas
         return redirect()->route('cinemas.index');
+    }
+
+    public function usuarios(Tenant $cinema)
+    {
+        // Retorna a view com a lista de usuários do cinema
+        return Inertia::render('Admin/Cinemas/Usuarios', [
+            'usuarios' => $cinema->users,
+            'cinema' => $cinema
+        ]);
+    }
+
+    public function addUsuario(Request $request, Tenant $cinema)
+    {
+        $request->validate([
+            'id' => 'required|exists:users,id'
+        ]);
+
+        // Verifica se o usuário já está no cinema
+        if ($cinema->users->contains($request->id)) {
+            return redirect()->route('cinemas.usuarios', $cinema->id);
+        }
+
+        // Adiciona o usuário ao cinema
+        $cinema->users()->attach($request->id);
+
+        // Retorna para a lista de usuários do cinema
+        return redirect()->route('cinemas.usuarios', $cinema->id);
+    }
+
+    public function removeUsuario(Tenant $cinema, User $usuario)
+    {
+        // Remove o usuário do cinema
+        $cinema->users()->detach($usuario->id);
+
+        // Retorna para a lista de usuários do cinema
+        return redirect()->route('cinemas.usuarios', $cinema->id);
+    }
+
+    public function gerenteUsuario(Tenant $cinema, User $usuario)
+    {
+        // Verifica se o usuário já é da empresa
+        if ($cinema->users->contains($usuario->id)) {
+            // Atualiza o usuário para gerente do cinema
+            $cinema->users()->updateExistingPivot($usuario->id, ['gerente' => true]);
+
+            // Retira o gerente de todos os outros usuarios
+            $cinema->users()->wherePivot('user_id', '!=', $usuario->id)->update(['gerente' => false]);
+        }
+
+        // Retorna para a lista de usuários do cinema
+        return redirect()->route('cinemas.usuarios', $cinema->id);
     }
 }
