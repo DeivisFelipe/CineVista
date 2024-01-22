@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'cliente' => [
+            'driver' => 'session',
+            'provider' => 'clientes',
+        ],
+        'usuario' => [
+            'driver' => 'session',
+            'provider' => 'usuarios',
+        ],
     ],
 
     /*
@@ -63,6 +71,14 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'clientes' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Cliente::class,
+        ],
+        'usuarios' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\UserTenant::class,
         ],
 
         // 'users' => [
@@ -93,6 +109,18 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'clientes' => [
+            'provider' => 'clientes',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'usuarios' => [
+            'provider' => 'usuarios',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

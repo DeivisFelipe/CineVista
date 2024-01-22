@@ -2,58 +2,72 @@
 
 declare(strict_types=1);
 
-// use Inertia\Inertia;
-// use Illuminate\Support\Facades\Route;
-// use Illuminate\Foundation\Application;
-// use App\Http\Controllers\ProfileController;
-// use App\Http\Controllers\Auth\PasswordController;
-// use App\Http\Controllers\Auth\NewPasswordController;
-// use App\Http\Controllers\Auth\VerifyEmailController;
-// use App\Http\Controllers\Auth\RegisteredUserController;
-// use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
-// use App\Http\Controllers\Auth\PasswordResetLinkController;
-// use App\Http\Controllers\Auth\ConfirmablePasswordController;
-// use App\Http\Controllers\Auth\AuthenticatedSessionController;
-// use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
-// use App\Http\Controllers\Auth\EmailVerificationPromptController;
-// use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\AuthClienteController;
+use App\Http\Controllers\AuthUsuarioController;
+use App\Http\Controllers\ProfileCinemaController;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 
-// Route::middleware([
-//     'web',
-//     InitializeTenancyByDomain::class,
-//     PreventAccessFromCentralDomains::class,
-// ])->group(function () {
-//     Route::get('/', function () {
-//         return Inertia::render('Welcome', [
-//             'canLogin' => Route::has('login'),
-//             'canRegister' => Route::has('register'),
-//             'laravelVersion' => Application::VERSION,
-//             'phpVersion' => PHP_VERSION,
-//         ]);
-//     });
+Route::middleware([
+    'web',
+    InitializeTenancyByDomain::class,
+    PreventAccessFromCentralDomains::class,
+])->group(function () {
+    Route::get('/', function () {
+        $cliente = Auth::guard('cliente')->user();
 
-//     Route::get('/dashboard', function () {
-//         return Inertia::render('Dashboard');
-//     })->middleware(['auth', 'verified'])->name('dashboard');
+        return Inertia::render('Cinema/Cliente/Index', [
+            'cliente' => $cliente
+        ]);
+    })->name('home');
 
-//     Route::middleware('auth')->group(function () {
-//         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-//     });
+    Route::get('/dashboard', function () {
+        return Inertia::render('Cinema/Usuario/Dashboard');
+    })->middleware(['auth'])->name('cinema.usuario.dashboard');
 
-//     Route::middleware('guest')->group(function () {
+    Route::middleware('auth')->group(function () {
+        Route::get('/profile', [ProfileCinemaController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileCinemaController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileCinemaController::class, 'destroy'])->name('profile.destroy');
+    });
 
-//         // Rota que mostra a tela de login
-//         Route::get('login', [AuthenticatedSessionController::class, 'create'])
-//             ->name('login');
+    Route::middleware('guest')->group(function () {
+        // Rota que mostra a tela de login do usuário   
+        Route::get('login/usuario', [AuthUsuarioController::class, 'create'])
+            ->name('cinema.usuario.login');
+        // Rota que faz o login do usuário
+        Route::post('login/usuario', [AuthUsuarioController::class, 'store'])
+            ->name('cinema.usuario.logging');
 
-//         Route::post('login', [AuthenticatedSessionController::class, 'store']);
-//     });
+        // Rota que mostra a tela de login do cliente
+        Route::get('login/cliente', [AuthClienteController::class, 'create'])
+            ->name('cinema.cliente.login');
+        // Rota que faz o login do cliente
+        Route::post('login/cliente', [AuthClienteController::class, 'store'])
+            ->name('cinema.cliente.logging');
 
-//     Route::middleware('auth')->group(function () {
-//         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-//             ->name('logout');
-//     });
-// });
+        // Rota que mostra a tela de registro do cliente
+        Route::get('register/cliente', [AuthClienteController::class, 'registro'])
+            ->name('cinema.cliente.register');
+        // Rota que faz o registro do cliente
+        Route::post('register/cliente', [AuthClienteController::class, 'registrar'])
+            ->name('cinema.cliente.registering');
+    });
+
+    Route::middleware('auth:cliente')->group(function () {
+        // Rota de logout do cliente
+        Route::post('logout/cliente', [AuthClienteController::class, 'destroy'])
+            ->name('cinema.cliente.logout');
+    });
+
+    Route::middleware('auth:usuario')->group(function () {
+        // Rota de logout do usuário
+        Route::post('logout/usuario', [AuthUsuarioController::class, 'destroy'])
+            ->name('cinema.usuario.logout');
+    });
+});

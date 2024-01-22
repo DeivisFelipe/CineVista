@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Tenant;
+use App\Models\UserTenant;
 use Illuminate\Http\Request;
 
 class CinemaController extends Controller
@@ -49,7 +50,7 @@ class CinemaController extends Controller
 
         // Cria um novo domínio para o cinema
         $tenant->domains()->create([
-            'domain' => $request->domain,
+            'domain' => $request->domain . ".localhost",
         ]);
 
         // Retorna para a lista de cinemas
@@ -89,7 +90,7 @@ class CinemaController extends Controller
 
         // Atualiza os dados do domínio
         $cinema->domains()->update([
-            'domain' => $request->domain,
+            'domain' => $request->domain . ".localhost",
         ]);
 
         // Retorna para a lista de cinemas
@@ -123,13 +124,26 @@ class CinemaController extends Controller
             'id' => 'required|exists:users,id'
         ]);
 
+        $user = User::find($request->id);
+
         // Verifica se o usuário já está no cinema
         if ($cinema->users->contains($request->id)) {
             return redirect()->route('cinemas.usuarios', $cinema->id);
         }
 
         // Adiciona o usuário ao cinema
-        $cinema->users()->attach($request->id);
+        $cinema->users()->attach($user->global_id);
+
+        tenancy()->initialize($cinema);
+
+        $userTenant = UserTenant::create([
+            'global_id' => $user->global_id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'password' => $user->password
+        ]);
+
+        tenancy()->end();
 
         // Retorna para a lista de usuários do cinema
         return redirect()->route('cinemas.usuarios', $cinema->id);
@@ -138,7 +152,7 @@ class CinemaController extends Controller
     public function removeUsuario(Tenant $cinema, User $usuario)
     {
         // Remove o usuário do cinema
-        $cinema->users()->detach($usuario->id);
+        $cinema->users()->detach($usuario->global_id);
 
         // Retorna para a lista de usuários do cinema
         return redirect()->route('cinemas.usuarios', $cinema->id);
@@ -148,11 +162,12 @@ class CinemaController extends Controller
     {
         // Verifica se o usuário já é da empresa
         if ($cinema->users->contains($usuario->id)) {
+
             // Atualiza o usuário para gerente do cinema
-            $cinema->users()->updateExistingPivot($usuario->id, ['gerente' => true]);
+            $cinema->users()->updateExistingPivot($usuario->global_id, ['gerente' => true]);
 
             // Retira o gerente de todos os outros usuarios
-            $cinema->users()->wherePivot('user_id', '!=', $usuario->id)->update(['gerente' => false]);
+            $cinema->users()->wherePivot('global_user_id', '!=', $usuario->global_id)->update(['gerente' => false]);
         }
 
         // Retorna para a lista de usuários do cinema

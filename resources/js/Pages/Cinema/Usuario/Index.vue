@@ -16,7 +16,9 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
     <nav class="w-full">
       <ul class="flex justify-end items-center">
         <li class="text-white mx-6">Filmes em cartaz</li>
-        <li class="bg-white text-cinevista-primary p-2 px-10 rounded-xl">Entrar</li>
+        <a :href="route('cinema.cliente.login')">
+          <li class="bg-white text-cinevista-primary p-2 px-10 rounded-xl hover:bg-stone-300 hover:cursor-pointer">Entrar</li>
+        </a>
       </ul>
     </nav>
   </header>

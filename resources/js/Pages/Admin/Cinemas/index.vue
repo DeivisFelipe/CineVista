@@ -46,8 +46,14 @@ function deleteCinema(cinema) {
             </thead>
             <tbody>
               <tr v-for="cinema in cinemas" :key="cinema.id" class="odd:bg-slate-100">
-                <td class="p-4 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">{{ cinema.nome }}</td>
-                <td class="p-4 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">{{ cinema.domains[0].domain + ".localhost" }}</td>
+                <td class="p-4 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                  {{ cinema.nome }}
+                </td>
+                <td class="p-4 font-sans text-sm antialiased font-normal leading-normal ">
+                  <a :href="'http://' + cinema.domains[0].domain" target="_black" class="text-blue-500 hover:text-blue-900">
+                    {{ cinema.domains[0].domain }}
+                  </a>
+                </td>
                 <td class="p-4 font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900 text-right">
                   <a :href="route('cinemas.usuarios', cinema.id)" class="text-indigo-600 hover:text-indigo-900">Usuários</a>
                   <a :href="route('cinemas.edit', cinema.id)" class="text-indigo-600 hover:text-indigo-900 ml-3">Editar</a>

@@ -2,33 +2,30 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Stancl\Tenancy\Contracts\Syncable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-use Stancl\Tenancy\Contracts\SyncMaster;
-use Stancl\Tenancy\Database\Models\TenantPivot;
 use Stancl\Tenancy\Database\Concerns\ResourceSyncing;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Stancl\Tenancy\Database\Concerns\CentralConnection;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class User extends Authenticatable implements SyncMaster
+class UserTenant extends Authenticatable implements Syncable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    use ResourceSyncing, CentralConnection;
+    use ResourceSyncing;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    protected $guarded = [];
+    public $timestamps = false;
+
     protected $fillable = [
         'name',
         'email',
         'admin',
         'password',
+        'global_id',
     ];
+
+    protected $table = 'users';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -50,17 +47,6 @@ class User extends Authenticatable implements SyncMaster
         'password' => 'hashed',
     ];
 
-    public function tenants(): BelongsToMany
-    {
-        return $this->belongsToMany(Tenant::class, 'user_tenant', 'global_user_id', 'tenant_id', 'global_id')
-            ->using(TenantPivot::class)->withPivot('gerente');
-    }
-
-    public function getTenantModelName(): string
-    {
-        return User::class;
-    }
-
     public function getGlobalIdentifierKey()
     {
         return $this->getAttribute($this->getGlobalIdentifierKeyName());
@@ -73,7 +59,7 @@ class User extends Authenticatable implements SyncMaster
 
     public function getCentralModelName(): string
     {
-        return static::class;
+        return User::class;
     }
 
     public function getSyncedAttributeNames(): array

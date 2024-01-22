@@ -13,9 +13,14 @@ return new class extends Migration
     {
         Schema::create('user_tenant', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('tenant_id')->constrained();
+            $table->string('tenant_id');
+            $table->string('global_user_id');
             $table->boolean('gerente')->default(false);
+
+            $table->unique(['tenant_id', 'global_user_id']);
+
+            $table->foreign('tenant_id')->references('id')->on('tenants')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('global_user_id')->references('global_id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

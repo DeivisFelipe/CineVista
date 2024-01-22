@@ -10,9 +10,9 @@
     - [X] Fazer crud de filmes admin
     - [X] Fazer crud de cinemas admin
     - [X] Fazer crud de usuarios em cinemas admin
-    - [ ] Fazer login do cinema
-    - [ ] Fazer registrar de clientes
-    - [ ] Fazer login de clientes
+    - [X] Fazer login do cinema
+    - [X] Fazer registrar de clientes
+    - [X] Fazer login de clientes
     - [ ] Fazer crud de filmes cinema
     - [ ] Fazer crud de salas cinema
     - [ ] Fazer crud de sessao cinema
