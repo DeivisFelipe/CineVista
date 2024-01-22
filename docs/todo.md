@@ -13,6 +13,5 @@
     - [X] Fazer login do cinema
     - [X] Fazer registrar de clientes
     - [X] Fazer login de clientes
-    - [ ] Fazer crud de filmes cinema
-    - [ ] Fazer crud de salas cinema
+    - [X] Fazer crud de salas cinema
     - [ ] Fazer crud de sessao cinema

@@ -18,13 +18,13 @@ const showingNavigationDropdown = ref(false);
       </Link>
       <nav class="w-full">
         <ul class="flex justify-end items-center">
-          <Link :href="route('cinemas.index')">
+          <Link :href="route('cinema.usuario.salas')">
           <li class="text-white mx-6">Salas</li>
           </Link>
-          <Link :href="route('filmes.index')">
-          <li class="text-white mx-6">Sessao</li>
+          <Link :href="route('cinema.usuario.sessoes')">
+          <li class="text-white mx-6">Sessões</li>
           </Link>
-          <Link :href="route('profile.edit')">
+          <Link :href="route('cinema.usuario.profile.edit')">
           <li class="text-white mx-6">Perfil</li>
           </Link>
           <Link :href="route('cinema.usuario.logout')" method="post">
